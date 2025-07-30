@@ -6,7 +6,7 @@ import lombok.Getter;
 public class ScheduleRequestDto {
 
     String title;
-    String description;
+    String content;
     String writer;
     String password;
 }
