@@ -29,13 +29,12 @@ public class ScheduleController {
 //    }
     @GetMapping("/schedules")
     public List<ScheduleResponseDto> findByWriter(@RequestParam(required = false) String writer) {
-        if( writer==null || writer.isEmpty() ){
+        if(writer==null){
             return scheduleService.findAll();
         }else{
             return scheduleService.findByWriter(writer);
         }
 
     }
-
 
 }
