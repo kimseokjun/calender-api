@@ -29,7 +29,7 @@ public class ScheduleController {
 //    public List<Schedule> findByWriter(@PathVariable String writer) {
 //        return scheduleService.findByWriter(writer);
 //    }
-    @GetMapping("/schedules")
+    @GetMapping("/schedules")   //작성자기반 일정 조회(안쓰면 전체조회)
     public List<ScheduleResponseDto> findByWriter(@RequestParam(required = false) String writer) {
         if(writer==null || writer.isEmpty()){
             return scheduleService.findAll();
@@ -38,11 +38,14 @@ public class ScheduleController {
         }
 
     }
-    @PatchMapping("/schedules/{id}")
+    @PatchMapping("/schedules/{id}")    //일정 수정
     public ScheduleUpdateRespDto updateSchedule(@PathVariable("id") Long id, @RequestBody ScheduleUpdateReqDto scheduleUpdateReqDto) {
             
         return scheduleService.updateSchedule(id,scheduleUpdateReqDto);
     }
     
-    
+    @DeleteMapping("/schedules/{id}")   //일정 삭제
+    public void deleteSchedule(@PathVariable("id") Long id) {
+        scheduleService.deleteSchedule(id);
+    }
 }
