@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
-    Optional<List<Schedule>> findByWriter(String writer);
+    List<Schedule> findByWriter(String writer);
 }

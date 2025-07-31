@@ -1,9 +1,6 @@
 package org.example.calendarapi.service;
 
-import org.example.calendarapi.dto.ScheduleRequestDto;
-import org.example.calendarapi.dto.ScheduleResponseDto;
-import org.example.calendarapi.dto.ScheduleUpdateReqDto;
-import org.example.calendarapi.dto.ScheduleUpdateRespDto;
+import org.example.calendarapi.dto.*;
 import org.example.calendarapi.entity.Schedule;
 import org.example.calendarapi.respository.ScheduleRepository;
 import org.springframework.stereotype.Service;
@@ -54,7 +51,7 @@ public class ScheduleService {
 
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findByWriter(String writer) {
-        List<Schedule> schedules = scheduleRepository.findByWriter(writer).orElseThrow(() -> new IllegalArgumentException("해당 작성자가 쓴 글이 없습니다."));
+        List<Schedule> schedules = scheduleRepository.findByWriter(writer);
         List<ScheduleResponseDto> scheduleResponseDtos = new ArrayList<>();
         for(Schedule schedule : schedules){
             scheduleResponseDtos.add(new ScheduleResponseDto(schedule.getTitle(),schedule.getContent(),schedule.getWriter(),schedule.getCreatedAt(),schedule.getModifiedAt()));
@@ -77,7 +74,20 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void deleteSchedule(Long id) {
-        scheduleRepository.deleteById(id);
+    public void deleteSchedule(Long id, ScheduleDeleteReqDto scheduleDeleteReqDto) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않습니다."));
+
+        String checkpassword = schedule.getPassword();
+
+        validatePassword(scheduleDeleteReqDto.getPassword(), checkpassword);//비밀번호 체크 메서드
+       scheduleRepository.deleteById(id);
+
+    }
+
+    private void validatePassword(String inputPassword, String actualPassword) {
+        if (!actualPassword.equals(inputPassword)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
     }
 }

@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 @Getter
 public class ScheduleUpdateRespDto {
 
-    String title;
-    String content;
-    String writer;
-    LocalDateTime createdAt;
-    LocalDateTime modifiedAt;
+    private String title;
+    private String content;
+    private String writer;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
 
     public ScheduleUpdateRespDto(String title, String content, String writer , LocalDateTime createdAt, LocalDateTime modifiedAt) {

@@ -1,9 +1,6 @@
 package org.example.calendarapi.controller;
 
-import org.example.calendarapi.dto.ScheduleRequestDto;
-import org.example.calendarapi.dto.ScheduleResponseDto;
-import org.example.calendarapi.dto.ScheduleUpdateReqDto;
-import org.example.calendarapi.dto.ScheduleUpdateRespDto;
+import org.example.calendarapi.dto.*;
 import org.example.calendarapi.entity.Schedule;
 import org.example.calendarapi.service.ScheduleService;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +42,8 @@ public class ScheduleController {
     }
     
     @DeleteMapping("/schedules/{id}")   //일정 삭제
-    public void deleteSchedule(@PathVariable("id") Long id) {
-        scheduleService.deleteSchedule(id);
+    public void deleteSchedule(@PathVariable("id") Long id, @RequestBody ScheduleDeleteReqDto scheduleDeleteReqDto) {
+        System.out.println("확인용 " + scheduleDeleteReqDto.getPassword());
+        scheduleService.deleteSchedule(id, scheduleDeleteReqDto);
     }
 }
