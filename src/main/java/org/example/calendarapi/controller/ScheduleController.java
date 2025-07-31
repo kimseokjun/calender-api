@@ -2,10 +2,11 @@ package org.example.calendarapi.controller;
 
 import org.example.calendarapi.dto.ScheduleRequestDto;
 import org.example.calendarapi.dto.ScheduleResponseDto;
+import org.example.calendarapi.entity.Schedule;
 import org.example.calendarapi.service.ScheduleService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ScheduleController {
@@ -21,4 +22,20 @@ public class ScheduleController {
 
         return scheduleService.save(scheduleRequestDto);
     }
+
+//    @GetMapping("/schedules/{writer}")
+//    public List<Schedule> findByWriter(@PathVariable String writer) {
+//        return scheduleService.findByWriter(writer);
+//    }
+    @GetMapping("/schedules")
+    public List<ScheduleResponseDto> findByWriter(@RequestParam(required = false) String writer) {
+        if( writer==null || writer.isEmpty() ){
+            return scheduleService.findAll();
+        }else{
+            return scheduleService.findByWriter(writer);
+        }
+
+    }
+
+
 }

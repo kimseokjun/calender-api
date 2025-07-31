@@ -7,6 +7,10 @@ import org.example.calendarapi.respository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class ScheduleService {
 
@@ -34,4 +38,24 @@ public class ScheduleService {
                 savedschedule.getModifiedAt()
         );
     }
+
+    public List<ScheduleResponseDto> findAll() {
+        List<Schedule> schedules = scheduleRepository.findAll();
+        List<ScheduleResponseDto> scheduleResponseDtos = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            scheduleResponseDtos.add(new ScheduleResponseDto(schedule.getTitle(), schedule.getContent(), schedule.getWriter(), schedule.getCreatedAt(), schedule.getModifiedAt()));
+        }
+        return scheduleResponseDtos;
+    }
+
+    public List<ScheduleResponseDto> findByWriter(String writer) {
+        List<Schedule> schedules = scheduleRepository.findByWriter(writer);
+        List<ScheduleResponseDto> scheduleResponseDtos = new ArrayList<>();
+        for(Schedule schedule : schedules){
+            scheduleResponseDtos.add(new ScheduleResponseDto(schedule.getTitle(),schedule.getContent(),schedule.getWriter(),schedule.getCreatedAt(),schedule.getModifiedAt()));
+        }
+        scheduleResponseDtos.sort((a, b) -> b.getModifiedAt().compareTo(a.getModifiedAt())); // 수정일 기준으로 내림차순
+        return scheduleResponseDtos;
+    }
+
 }
