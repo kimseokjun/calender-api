@@ -7,5 +7,5 @@ readme
 | GET    | /schedules/{id} | 선택 일정 조회 | id                       | 해당 일정 정보<br/>JSON (제목, 내용,작성자명, 작성/수정일 |
 | PETCH  | /schedules/{id} | 선택 일정 수정 | id + 비밀번호 + 작성자명 + 제목    | 수정된 일정 정보 |
 | DELETE | /schedules/{id} | 선택 일정 삭제 | id + 비밀번호                | 삭제 성공 메시지 |
-
+| POST   | /comments       | 댓글 생성    | JSON (내용,작성자명, 비밀번호) | JSON (내용,작성자명, 작성/수정일)  |
 

@@ -1,7 +1,6 @@
 package org.example.calendarapi.controller;
 
 import org.example.calendarapi.dto.*;
-import org.example.calendarapi.entity.Schedule;
 import org.example.calendarapi.service.ScheduleService;
 import org.springframework.web.bind.annotation.*;
 
