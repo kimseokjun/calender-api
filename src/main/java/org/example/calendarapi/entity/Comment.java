@@ -3,6 +3,7 @@ package org.example.calendarapi.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.calendarapi.dto.CommentCreateRespDto;
 
 @Entity
 @Getter
@@ -26,5 +27,4 @@ public class Comment extends BaseEntity{
         this.password = password;
         this.schedule = schedule;
     }
-
 }

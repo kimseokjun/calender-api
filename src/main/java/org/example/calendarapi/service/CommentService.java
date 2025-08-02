@@ -23,19 +23,9 @@ public class CommentService {
 
     public CommentCreateRespDto saveComment(Long scheduleid, CommentCreateReqDto commentCreateReqDto) {
         Schedule schedule = scheduleRepository.findById(scheduleid).orElseThrow(() -> new IllegalArgumentException("해당 일정이 없습니다."));
-
-        Comment comment = new Comment(commentCreateReqDto.getComment(),
-                commentCreateReqDto.getWriter(),
-                commentCreateReqDto.getPassword(),
-                schedule);
-
+        Comment comment = commentCreateReqDto.toEntity(schedule);
         commentRepository.save(comment);
 
-        return new CommentCreateRespDto(comment.getComment_id(),
-                comment.getSchedule().getId(),
-                comment.getComment(),
-                comment.getWriter(),
-                comment.getCreatedAt(),
-                comment.getModifiedAt());
+        return new CommentCreateRespDto(comment);
     }
 }

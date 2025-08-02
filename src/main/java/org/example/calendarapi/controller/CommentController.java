@@ -20,6 +20,7 @@ public class CommentController {
 
     @PostMapping("/comments")
     public ResponseEntity<CommentCreateRespDto> saveComment(@PathVariable Long scheduleid, @RequestBody CommentCreateReqDto commentCreateReqDto) {
+
         CommentCreateRespDto commentCreateRespDto = commentService.saveComment(scheduleid, commentCreateReqDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(commentCreateRespDto);
