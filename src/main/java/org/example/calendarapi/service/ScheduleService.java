@@ -64,10 +64,10 @@ public class ScheduleService {
     public ScheduleUpdateRespDto updateSchedule(Long id,ScheduleUpdateReqDto scheduleUpdateReqDto) {
        Schedule schedule = scheduleRepository.findById(id)
                .orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않습니다."));
-
+        String checkpassword = schedule.getPassword();
        schedule.setTitle(scheduleUpdateReqDto.getTitle());
        schedule.setWriter(scheduleUpdateReqDto.getWriter());
-
+        validatePassword(scheduleUpdateReqDto.getPassword(), checkpassword);
        scheduleRepository.save(schedule);
 
        return new ScheduleUpdateRespDto(schedule.getTitle(),schedule.getContent(),schedule.getWriter(),schedule.getCreatedAt(),schedule.getModifiedAt());
@@ -82,7 +82,6 @@ public class ScheduleService {
 
         validatePassword(scheduleDeleteReqDto.getPassword(), checkpassword);//비밀번호 체크 메서드
        scheduleRepository.deleteById(id);
-
     }
 
     private void validatePassword(String inputPassword, String actualPassword) {

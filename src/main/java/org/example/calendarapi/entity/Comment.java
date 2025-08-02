@@ -1,9 +1,6 @@
 package org.example.calendarapi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,12 +14,17 @@ public class Comment extends BaseEntity{
     private String comment;
     private String writer;
     private String password;
-    private Long schedule_id;
 
-    public Comment(String comment, String writer, String password, Long scheduleId) {
+
+    @ManyToOne  //게시글 하나에 댓글이 여러개가 달릴수 있음.
+    @JoinColumn(name ="schedule_id")
+    private Schedule schedule;
+
+    public Comment(String comment, String writer, String password, Schedule schedule) {
         this.comment = comment;
         this.writer = writer;
         this.password = password;
-        this.schedule_id = scheduleId;
+        this.schedule = schedule;
     }
+
 }

@@ -4,6 +4,8 @@ package org.example.calendarapi.controller;
 import org.example.calendarapi.dto.CommentCreateReqDto;
 import org.example.calendarapi.dto.CommentCreateRespDto;
 import org.example.calendarapi.service.CommentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,8 +19,9 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
-    public CommentCreateRespDto saveComment(@PathVariable Long scheduleid, @RequestBody CommentCreateReqDto commentCreateReqDto) {
+    public ResponseEntity<CommentCreateRespDto> saveComment(@PathVariable Long scheduleid, @RequestBody CommentCreateReqDto commentCreateReqDto) {
+        CommentCreateRespDto commentCreateRespDto = commentService.saveComment(scheduleid, commentCreateReqDto);
 
-        return commentService.saveComment(scheduleid, commentCreateReqDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentCreateRespDto);
     }
 }

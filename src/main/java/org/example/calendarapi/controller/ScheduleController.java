@@ -2,6 +2,7 @@ package org.example.calendarapi.controller;
 
 import org.example.calendarapi.dto.*;
 import org.example.calendarapi.service.ScheduleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,14 @@ public class ScheduleController {
         }
 
     }
+
+//    @GetMapping("/schedules/{id}")
+//    public ScheduleResponseDto findById(@PathVariable Long id) {
+//
+//        //return scheduleService.findById(id);
+//    }
+
+
     @PatchMapping("/schedules/{id}")    //일정 수정
     public ScheduleUpdateRespDto updateSchedule(@PathVariable("id") Long id, @RequestBody ScheduleUpdateReqDto scheduleUpdateReqDto) {
             
@@ -45,4 +54,5 @@ public class ScheduleController {
         System.out.println("확인용 " + scheduleDeleteReqDto.getPassword());
         scheduleService.deleteSchedule(id, scheduleDeleteReqDto);
     }
+
 }
