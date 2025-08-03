@@ -1,5 +1,6 @@
 package org.example.calendarapi.respository;
 
+import org.example.calendarapi.entity.Comment;
 import org.example.calendarapi.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 

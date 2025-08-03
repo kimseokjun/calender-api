@@ -51,8 +51,15 @@ public class ScheduleController {
     
     @DeleteMapping("/schedules/{id}")   //일정 삭제
     public void deleteSchedule(@PathVariable("id") Long id, @RequestBody ScheduleDeleteReqDto scheduleDeleteReqDto) {
-        System.out.println("확인용 " + scheduleDeleteReqDto.getPassword());
         scheduleService.deleteSchedule(id, scheduleDeleteReqDto);
     }
 
+
+    @GetMapping("/schedules/{id}")
+    public ScheduleWithCommentsRespoDto getSchedule(@PathVariable("id") Long id) {
+        System.out.println("id = " + id);
+        System.out.println("받아온거 : " + scheduleService.getScheduleWithComments(id));
+        return scheduleService.getScheduleWithComments(id);
+
+    }
 }

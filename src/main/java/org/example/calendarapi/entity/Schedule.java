@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -28,6 +30,7 @@ public class Schedule extends BaseEntity {
     public void setWriter(String writer) {
             this.writer = writer;
     }
+
 
     public void setContent(String content) {}
 

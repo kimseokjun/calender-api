@@ -1,7 +1,9 @@
 package org.example.calendarapi.service;
 
 import org.example.calendarapi.dto.*;
+import org.example.calendarapi.entity.Comment;
 import org.example.calendarapi.entity.Schedule;
+import org.example.calendarapi.respository.CommentRepository;
 import org.example.calendarapi.respository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +17,11 @@ import java.util.NoSuchElementException;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final CommentRepository commentRepository;
 
-    public ScheduleService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository, CommentRepository commentRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Transactional
@@ -83,6 +87,18 @@ public class ScheduleService {
         validatePassword(scheduleDeleteReqDto.getPassword(), checkpassword);//비밀번호 체크 메서드
        scheduleRepository.deleteById(id);
     }
+
+    @Transactional
+    public ScheduleWithCommentsRespoDto getScheduleWithComments(Long id){
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않습니다."));
+        System.out.println("schedule = " + schedule);
+        List<Comment> comments = commentRepository.findBySchedule(schedule);
+
+        return new ScheduleWithCommentsRespoDto(schedule,comments);
+
+    }
+
 
     private void validatePassword(String inputPassword, String actualPassword) {
         if (!actualPassword.equals(inputPassword)) {

@@ -13,13 +13,4 @@ public class CommentCreateReqDto {
     public Comment toEntity(Schedule schedule) {
         return new Comment(this.comment, this.writer, this.password, schedule);
     }
-
-    @Override
-    public String toString() {
-        return "CommentCreateReqDto{" +
-                "comment='" + comment + '\'' +
-                ", writer='" + writer + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }
