@@ -55,6 +55,7 @@ public class ScheduleController {
 //        return scheduleService.updateSchedule(id,scheduleUpdateReqDto);
 //    }
 
+    //DB에 CASECADE 를 해놔서 댓글들도 같이 삭제가 되도록 하였음
     @DeleteMapping("/schedules/{id}")   //일정 삭제
     public void deleteSchedule(@PathVariable("id") Long id, @RequestBody ScheduleDeleteReqDto scheduleDeleteReqDto) {
         scheduleService.deleteSchedule(id, scheduleDeleteReqDto);

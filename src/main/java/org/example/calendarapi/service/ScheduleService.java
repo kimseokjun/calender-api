@@ -68,9 +68,9 @@ public class ScheduleService {
     public ScheduleUpdateRespDto updateSchedule(Long id,ScheduleUpdateReqDto scheduleUpdateReqDto) {
        Schedule schedule = scheduleRepository.findById(id)
                .orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않습니다."));
-        String checkpassword = schedule.getPassword();
+
         schedule.updateSchedule(scheduleUpdateReqDto.getTitle(),scheduleUpdateReqDto.getWriter());
-        validatePassword(scheduleUpdateReqDto.getPassword(), checkpassword);
+        validatePassword(scheduleUpdateReqDto.getPassword(), schedule.getPassword());
 
         scheduleRepository.save(schedule);
 
