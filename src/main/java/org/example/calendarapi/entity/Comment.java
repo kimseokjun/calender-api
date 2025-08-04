@@ -15,7 +15,7 @@ public class Comment extends BaseEntity{
     private String comment;
     private String writer;
     private String password;
-
+// private long schedule_id 스케쥴 테이블의 pk를 외래키로 받아오기 위함
 
     @ManyToOne  //게시글 하나에 댓글이 여러개가 달릴수 있음.
     @JoinColumn(name ="schedule_id")

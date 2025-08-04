@@ -69,10 +69,10 @@ public class ScheduleService {
        Schedule schedule = scheduleRepository.findById(id)
                .orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않습니다."));
         String checkpassword = schedule.getPassword();
-       schedule.setTitle(scheduleUpdateReqDto.getTitle());
-       schedule.setWriter(scheduleUpdateReqDto.getWriter());
+        schedule.updateSchedule(scheduleUpdateReqDto.getTitle(),scheduleUpdateReqDto.getWriter());
         validatePassword(scheduleUpdateReqDto.getPassword(), checkpassword);
-       scheduleRepository.save(schedule);
+
+        scheduleRepository.save(schedule);
 
        return new ScheduleUpdateRespDto(schedule.getTitle(),schedule.getContent(),schedule.getWriter(),schedule.getCreatedAt(),schedule.getModifiedAt());
     }
@@ -82,10 +82,8 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(()-> new NoSuchElementException("해당 일정이 존재하지 않습니다."));
 
-        String checkpassword = schedule.getPassword();
-
-        validatePassword(scheduleDeleteReqDto.getPassword(), checkpassword);//비밀번호 체크 메서드
-       scheduleRepository.deleteById(id);
+        validatePassword(scheduleDeleteReqDto.getPassword(), schedule.getPassword());//비밀번호 체크 메서드
+        scheduleRepository.deleteById(id);
     }
 
     @Transactional

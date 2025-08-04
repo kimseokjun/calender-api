@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ScheduleUpdateRespDto {
 
+
     private String title;
     private String content;
     private String writer;

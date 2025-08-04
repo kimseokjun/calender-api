@@ -2,6 +2,7 @@ package org.example.calendarapi.controller;
 
 import org.example.calendarapi.dto.*;
 import org.example.calendarapi.service.ScheduleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,9 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedules")//일정 생성
-    public ScheduleResponseDto saveSchedule(@RequestBody ScheduleRequestDto scheduleRequestDto) {
+    public ResponseEntity<ScheduleResponseDto> saveSchedule(@RequestBody ScheduleRequestDto scheduleRequestDto) {
 
-        return scheduleService.saveSchedule(scheduleRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.saveSchedule(scheduleRequestDto));
     }
 
 //    @GetMapping("/schedules/{writer}")
@@ -45,10 +46,15 @@ public class ScheduleController {
 
     @PatchMapping("/schedules/{id}")    //일정 수정
     public ScheduleUpdateRespDto updateSchedule(@PathVariable("id") Long id, @RequestBody ScheduleUpdateReqDto scheduleUpdateReqDto) {
-            
+
         return scheduleService.updateSchedule(id,scheduleUpdateReqDto);
     }
-    
+//    @PutMapping("/schedules/{id}")    //일정 수정
+//    public ScheduleUpdateRespDto updateSchedule(@PathVariable("id") Long id, @RequestBody ScheduleUpdateReqDto scheduleUpdateReqDto) {
+//
+//        return scheduleService.updateSchedule(id,scheduleUpdateReqDto);
+//    }
+
     @DeleteMapping("/schedules/{id}")   //일정 삭제
     public void deleteSchedule(@PathVariable("id") Long id, @RequestBody ScheduleDeleteReqDto scheduleDeleteReqDto) {
         scheduleService.deleteSchedule(id, scheduleDeleteReqDto);
