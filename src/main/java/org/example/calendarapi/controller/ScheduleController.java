@@ -1,5 +1,6 @@
 package org.example.calendarapi.controller;
 
+import jakarta.validation.Valid;
 import org.example.calendarapi.dto.*;
 import org.example.calendarapi.service.ScheduleService;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class ScheduleController {
     }
 
     @PostMapping("/schedules")//일정 생성
-    public ResponseEntity<ScheduleResponseDto> saveSchedule(@RequestBody ScheduleRequestDto scheduleRequestDto) {
+    public ResponseEntity<ScheduleResponseDto> saveSchedule(@RequestBody @Valid ScheduleRequestDto scheduleRequestDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.saveSchedule(scheduleRequestDto));
     }
