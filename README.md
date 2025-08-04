@@ -9,3 +9,4 @@ readme
 | DELETE | /schedules/{id} | 선택 일정 삭제 | id + 비밀번호                | 삭제 성공 메시지 |
 | POST   | /comments       | 댓글 생성    | 내용,작성자명, 비밀번호 | JSON (내용,작성자명, 작성/수정일)  |
 
+<img width="754" height="333" alt="image" src="https://github.com/user-attachments/assets/b82daee7-2b07-4312-980d-fc5abf2b6841" />
